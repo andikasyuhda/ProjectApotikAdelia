@@ -77,4 +77,12 @@ class Medicine extends Model
         
         return $query;
     }
+
+    /**
+     * Get all stock history records for this medicine
+     */
+    public function stockHistories()
+    {
+        return $this->hasMany(StockHistory::class)->orderBy('created_at', 'desc');
+    }
 }

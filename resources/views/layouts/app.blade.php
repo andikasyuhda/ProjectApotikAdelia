@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'SIPESOB - Sistem Pencarian Stok Obat')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <title>@yield('title', 'ADELY - Adelia Electronic Pharmacy System')</title>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         :root {
             --primary-pink: #FF6B9D;
@@ -780,10 +780,359 @@
                 display: none;
             }
         }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 2px 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 320px;
+            max-width: 450px;
+            border-left: 4px solid;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.hide {
+            transform: translateX(120%);
+            opacity: 0;
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+        }
+
+        .toast.error {
+            border-left-color: var(--danger);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+
+        .toast-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .toast.success .toast-icon {
+            background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+            color: #065F46;
+        }
+
+        .toast.error .toast-icon {
+            background: linear-gradient(135deg, #FEE2E2, #FECACA);
+            color: #991B1B;
+        }
+
+        .toast.warning .toast-icon {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            color: #92400E;
+        }
+
+        .toast-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .toast-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .toast-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--bg-main);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: currentColor;
+            opacity: 0.3;
+            border-radius: 0 0 0 14px;
+            animation: progress 4s linear forwards;
+        }
+
+        @keyframes progress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(233, 30, 99, 0.4);
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fabPulse 2s ease-in-out infinite;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 12px 32px rgba(233, 30, 99, 0.5);
+        }
+
+        .fab svg {
+            width: 28px;
+            height: 28px;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fabPulse {
+            0%, 100% { box-shadow: 0 8px 24px rgba(233, 30, 99, 0.4); }
+            50% { box-shadow: 0 8px 32px rgba(233, 30, 99, 0.6), 0 0 0 8px rgba(233, 30, 99, 0.1); }
+        }
+
+        /* Micro-animations */
+        .btn-icon {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .btn-icon:hover {
+            transform: translateY(-3px) scale(1.05) !important;
+        }
+
+        .btn-icon:active {
+            transform: translateY(0) scale(0.95) !important;
+        }
+
+        .btn-primary, .btn-secondary {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .btn-primary:active, .btn-secondary:active {
+            transform: scale(0.97) !important;
+        }
+
+        .table-row {
+            transition: all 0.2s ease !important;
+        }
+
+        .table-row:hover {
+            transform: translateX(4px);
+            background: linear-gradient(90deg, rgba(255, 107, 157, 0.05), transparent) !important;
+        }
+
+        .stat-card, .content-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Mobile Responsiveness Improvements */
+        @media (max-width: 768px) {
+            .fab {
+                bottom: 20px;
+                right: 20px;
+                width: 54px;
+                height: 54px;
+            }
+
+            .page-header h2 {
+                font-size: 24px !important;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .medicine-table .table-header {
+                display: none;
+            }
+
+            .medicine-table .table-row {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 12px;
+                background: white;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+
+            .search-box input {
+                font-size: 16px;
+            }
+
+            .modal-content {
+                margin: 16px;
+                padding: 24px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .action-buttons {
+                justify-content: flex-start;
+                margin-top: 12px;
+            }
+
+            .pagination-wrapper {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 16px !important;
+            }
+
+            .sidebar {
+                width: var(--sidebar-collapsed) !important;
+            }
+
+            .sidebar .sidebar-brand,
+            .sidebar .nav-text,
+            .sidebar .user-details {
+                display: none !important;
+            }
+        }
     </style>
     @stack('styles')
 </head>
 <body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer">
+        @if(session('success'))
+        <div class="toast success" data-auto-dismiss="true">
+            <div class="toast-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title">Berhasil!</div>
+                <div class="toast-message">{{ session('success') }}</div>
+            </div>
+            <button class="toast-close" onclick="closeToast(this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="toast-progress"></div>
+        </div>
+        @endif
+        @if(session('error'))
+        <div class="toast error" data-auto-dismiss="true">
+            <div class="toast-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M15 9l-6 6M9 9l6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title">Error!</div>
+                <div class="toast-message">{{ session('error') }}</div>
+            </div>
+            <button class="toast-close" onclick="closeToast(this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="toast-progress"></div>
+        </div>
+        @endif
+        @if(session('warning'))
+        <div class="toast warning" data-auto-dismiss="true">
+            <div class="toast-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title">Peringatan!</div>
+                <div class="toast-message">{{ session('warning') }}</div>
+            </div>
+            <button class="toast-close" onclick="closeToast(this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="toast-progress"></div>
+        </div>
+        @endif
+    </div>
+
     <div class="app-container">
         @auth
         <!-- Sidebar -->
@@ -801,8 +1150,8 @@
                     </svg>
                 </div>
                 <div class="sidebar-brand">
-                    <h1>SIPESOB</h1>
-                    <p>Sistem Pencarian Stok Obat</p>
+                    <h1>ADELY</h1>
+                    <p>Adelia Electronic Pharmacy</p>
                 </div>
             </div>
 
@@ -884,7 +1233,49 @@
             localStorage.setItem('sidebarCollapsed', isCollapsed);
         }
 
-        // Restore sidebar state on page load
+        // Toast notification functions
+        function closeToast(btn) {
+            const toast = btn.closest('.toast');
+            toast.classList.remove('show');
+            toast.classList.add('hide');
+            setTimeout(() => toast.remove(), 400);
+        }
+
+        function showToast(type, title, message) {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+            };
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon">${icons[type]}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="closeToast(this)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="toast-progress"></div>
+            `;
+            
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        // Restore sidebar state on page load and show toasts
         document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.getElementById('sidebar');
             const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
@@ -892,8 +1283,31 @@
             if (isCollapsed) {
                 sidebar.classList.add('collapsed');
             }
+
+            // Show toasts with animation
+            document.querySelectorAll('.toast[data-auto-dismiss]').forEach((toast, index) => {
+                setTimeout(() => {
+                    toast.classList.add('show');
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                        toast.classList.add('hide');
+                        setTimeout(() => toast.remove(), 400);
+                    }, 4000);
+                }, index * 100);
+            });
         });
     </script>
     @stack('scripts')
+
+    <!-- Floating Action Button -->
+    @auth
+    @if(Request::is('medicines') || Request::is('medicines/*'))
+    <a href="{{ route('medicines.create') }}" class="fab" title="Tambah Obat Baru">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+    @endif
+    @endauth
 </body>
 </html>

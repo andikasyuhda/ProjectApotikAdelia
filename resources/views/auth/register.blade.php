@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar - SIPESOB')
+@section('title', 'Daftar - ADELY')
 
 @section('content')
 <div style="
@@ -49,7 +49,7 @@
                 font-size: 14px;
                 color: #64748B;
                 font-weight: 500;
-            ">Buat akun baru untuk SIPESOB</p>
+            ">Buat akun baru untuk ADELY</p>
         </div>
 
         <!-- Register Form -->

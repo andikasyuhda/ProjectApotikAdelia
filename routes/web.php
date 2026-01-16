@@ -23,6 +23,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/medicines', [MedicineController::class, 'store'])->name('medicines.store');
     Route::put('/medicines/{medicine}', [MedicineController::class, 'update'])->name('medicines.update');
     Route::delete('/medicines/{medicine}', [MedicineController::class, 'destroy'])->name('medicines.destroy');
+    Route::post('/medicines/{medicine}/adjust-stock', [MedicineController::class, 'adjustStock'])->name('medicines.adjust-stock');
+    Route::get('/medicines/{medicine}/history', [MedicineController::class, 'history'])->name('medicines.history');
+    Route::get('/api/medicines/suggest', [MedicineController::class, 'suggest'])->name('medicines.suggest');
     
     // Redirect /home to dashboard
     Route::get('/home', function () {
