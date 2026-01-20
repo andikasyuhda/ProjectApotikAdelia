@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'ADELY - Adelia Electronic Pharmacy System')</title>
+    <title>@yield('title', 'SIPASTOB-AB - Sistem Pencarian Stok Obat Apotek Adelia Bersaudara')</title>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         :root {
@@ -1150,8 +1150,8 @@
                     </svg>
                 </div>
                 <div class="sidebar-brand">
-                    <h1>ADELY</h1>
-                    <p>Adelia Electronic Pharmacy</p>
+                    <h1>SIPASTOB-AB</h1>
+                    <p>Sistem Pencarian Stok Obat Apotek Adelia Bersaudara</p>
                 </div>
             </div>
 
