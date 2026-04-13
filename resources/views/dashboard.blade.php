@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard - SIPESOB')
+@section('title', 'Dashboard - SIPASTOB-AB')
 
 @section('content')
 <div class="page-header" style="margin-bottom: 24px;">

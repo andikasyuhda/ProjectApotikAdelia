@@ -22,12 +22,12 @@ class Medicine extends Model
      */
     public function getStockStatusAttribute()
     {
-        if ($this->stok > 100) {
-            return 'aman'; // Safe
-        } elseif ($this->stok >= 50) {
-            return 'sedang'; // Medium
+        if ($this->stok <= 10) {
+            return 'rendah';
+        } elseif ($this->stok <= 20) {
+            return 'sedang';
         } else {
-            return 'rendah'; // Low
+            return 'tinggi';
         }
     }
 
@@ -39,7 +39,7 @@ class Medicine extends Model
     public function getStockColorAttribute()
     {
         return match($this->stock_status) {
-            'aman' => 'success',
+            'tinggi' => 'success',
             'sedang' => 'warning',
             'rendah' => 'danger',
             default => 'secondary',
@@ -54,7 +54,7 @@ class Medicine extends Model
     public function getStockLabelAttribute()
     {
         return match($this->stock_status) {
-            'aman' => 'Stok Aman',
+            'tinggi' => 'Stok Tinggi',
             'sedang' => 'Stok Sedang',
             'rendah' => 'Stok Rendah',
             default => 'Unknown',

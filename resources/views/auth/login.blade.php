@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Login - SIPESOB')
+@section('title', 'Login - SIPASTOB-AB')
 
 @section('content')
 <div style="
@@ -44,12 +44,12 @@
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
                 margin-bottom: 8px;
-            ">SIPESOB</h1>
+            ">SIPASTOB-AB</h1>
             <p style="
                 font-size: 14px;
                 color: #64748B;
                 font-weight: 500;
-            ">Sistem Pencarian Stok Obat Berbasis Web</p>
+            ">Sistem Pencarian Stok Obat Apotek Adelia Bersaudara</p>
         </div>
 
         <!-- Login Form -->

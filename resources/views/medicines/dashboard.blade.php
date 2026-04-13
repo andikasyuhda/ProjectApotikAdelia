@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Sistem Pencarian Stok Obat</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <title>SIPASTOB-AB - Sistem Pencarian Stok Obat Apotek Adelia Bersaudara</title>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         * {
             margin: 0;
@@ -480,7 +480,8 @@
         <!-- Header -->
         <div class="header">
             <div class="header-title">
-                <h1>Sistem Pencarian Stok Obat</h1>
+                <h1>SIPASTOB-AB</h1>
+                <p class="header-subtitle" style="font-size: 13px; margin-top: 4px;">Sistem Pencarian Stok Obat Apotek Adelia Bersaudara</p>
                 <p class="header-subtitle">Kelola dan pantau stok obat dengan mudah</p>
             </div>
             <div class="header-actions">

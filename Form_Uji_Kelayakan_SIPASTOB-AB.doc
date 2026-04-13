@@ -1,0 +1,240 @@
+FORM UJI KELAYAKAN SISTEM
+SIPASTOB-AB
+(Sistem Pencarian Stok Obat Apotek Adelia Bersaudara)
+
+================================================================================
+INFORMASI UMUM
+================================================================================
+Nama Sistem          : SIPASTOB-AB
+Versi Sistem         : 1.0
+Tanggal Pengujian    : _______________________
+Nama Penguji         : _______________________
+Jabatan Penguji      : _______________________
+Instansi             : Apotek Adelia Bersaudara
+
+Petunjuk Pengisian:
+Berikan penilaian dengan skala 1-5 untuk setiap aspek:
+1 = Sangat Tidak Layak, 2 = Tidak Layak, 3 = Cukup Layak, 4 = Layak, 5 = Sangat Layak
+
+================================================================================
+ASPEK 1: FUNCTIONALITY (FUNGSIONALITAS)
+================================================================================
+Aspek ini menilai sejauh mana sistem dapat menjalankan fungsi-fungsi yang diharapkan.
+
+No | Indikator                                          | Penilaian (1-5) | Keterangan
+---|---------------------------------------------------|-----------------|------------
+1  | Sistem mampu melakukan login dan logout dengan    |                 |
+   | benar                                              | [ ]             |
+2  | Sistem mampu menampilkan dashboard statistik      |                 |
+   | stok obat                                          | [ ]             |
+3  | Sistem mampu menambahkan data obat baru           | [ ]             |
+4  | Sistem mampu mengedit data obat                   | [ ]             |
+5  | Sistem mampu menghapus data obat                  | [ ]             |
+6  | Sistem mampu melakukan pencarian data obat        | [ ]             |
+7  | Sistem mampu menampilkan peringatan stok rendah   | [ ]             |
+8  | Sistem mampu menampilkan status stok (aman,       |                 |
+   | sedang, rendah)                                    | [ ]             |
+
+Subtotal Functionality: _______ / 40
+
+================================================================================
+ASPEK 2: RELIABILITY (KEANDALAN)
+================================================================================
+Aspek ini menilai kemampuan sistem dalam menjaga tingkat kinerja tertentu.
+
+No | Indikator                                          | Penilaian (1-5) | Keterangan
+---|---------------------------------------------------|-----------------|------------
+1  | Sistem tidak mengalami error saat dioperasikan    | [ ]             |
+2  | Sistem stabil saat digunakan dalam waktu lama     | [ ]             |
+3  | Data tersimpan dengan aman tanpa kehilangan       | [ ]             |
+4  | Sistem dapat memulihkan data setelah terjadi      |                 |
+   | kesalahan                                          | [ ]             |
+5  | Sistem memberikan pesan error yang informatif     | [ ]             |
+6  | Sistem dapat menangani input data yang tidak      |                 |
+   | valid dengan baik                                  | [ ]             |
+
+Subtotal Reliability: _______ / 30
+
+================================================================================
+ASPEK 3: USABILITY (KEGUNAAN)
+================================================================================
+Aspek ini menilai kemudahan pengguna dalam mengoperasikan dan memahami sistem.
+
+No | Indikator                                          | Penilaian (1-5) | Keterangan
+---|---------------------------------------------------|-----------------|------------
+1  | Tampilan antarmuka mudah dipahami                 | [ ]             |
+2  | Menu navigasi mudah digunakan                     | [ ]             |
+3  | Tata letak (layout) terstruktur dengan baik       | [ ]             |
+4  | Warna dan font nyaman untuk dilihat               | [ ]             |
+5  | Sistem mudah dipelajari oleh pengguna baru        | [ ]             |
+6  | Pesan dan notifikasi mudah dipahami               | [ ]             |
+7  | Proses pencarian data cepat dan mudah             | [ ]             |
+8  | Tombol dan icon intuitif dan mudah dikenali       | [ ]             |
+
+Subtotal Usability: _______ / 40
+
+================================================================================
+ASPEK 4: EFFICIENCY (EFISIENSI)
+================================================================================
+Aspek ini menilai sumber daya yang digunakan dan waktu respon sistem.
+
+No | Indikator                                          | Penilaian (1-5) | Keterangan
+---|---------------------------------------------------|-----------------|------------
+1  | Waktu loading halaman cepat (< 3 detik)           | [ ]             |
+2  | Proses penyimpanan data berjalan cepat            | [ ]             |
+3  | Proses pencarian data berjalan cepat              | [ ]             |
+4  | Sistem tidak membutuhkan banyak sumber daya       | [ ]             |
+5  | Waktu respon sistem memuaskan                     | [ ]             |
+6  | Sistem efisien dalam penggunaan database          | [ ]             |
+
+Subtotal Efficiency: _______ / 30
+
+================================================================================
+ASPEK 5: MAINTAINABILITY (PEMELIHARAAN)
+================================================================================
+Aspek ini menilai kemudahan dalam pemeliharaan dan pengembangan sistem.
+
+No | Indikator                                          | Penilaian (1-5) | Keterangan
+---|---------------------------------------------------|-----------------|------------
+1  | Kode program terstruktur dan terorganisir         | [ ]             |
+2  | Sistem mudah untuk diperbarui (update)            | [ ]             |
+3  | Sistem mudah untuk dikembangkan fitur baru        | [ ]             |
+4  | Dokumentasi sistem tersedia dan lengkap           | [ ]             |
+5  | Sistem menggunakan teknologi yang umum digunakan  | [ ]             |
+
+Subtotal Maintainability: _______ / 25
+
+================================================================================
+ASPEK 6: PORTABILITY (PORTABILITAS)
+================================================================================
+Aspek ini menilai kemampuan sistem untuk dipindahkan ke lingkungan lain.
+
+No | Indikator                                          | Penilaian (1-5) | Keterangan
+---|---------------------------------------------------|-----------------|------------
+1  | Sistem dapat diakses dari berbagai browser        | [ ]             |
+2  | Sistem dapat diinstal di berbagai server          | [ ]             |
+3  | Sistem kompatibel dengan berbagai sistem operasi  | [ ]             |
+4  | Sistem mudah dikonfigurasi                        | [ ]             |
+
+Subtotal Portability: _______ / 20
+
+================================================================================
+ASPEK 7: SECURITY (KEAMANAN)
+================================================================================
+Aspek ini menilai kemampuan sistem dalam melindungi data dan akses pengguna.
+
+No | Indikator                                          | Penilaian (1-5) | Keterangan
+---|---------------------------------------------------|-----------------|------------
+1  | Sistem memiliki fitur autentikasi yang aman       | [ ]             |
+2  | Password tersimpan dengan enkripsi                | [ ]             |
+3  | Sistem melindungi dari akses tidak sah            | [ ]             |
+4  | Data pengguna terlindungi dengan baik             | [ ]             |
+5  | Sistem memiliki validasi input yang baik          | [ ]             |
+6  | Session pengguna dikelola dengan aman             | [ ]             |
+
+Subtotal Security: _______ / 30
+
+================================================================================
+REKAPITULASI PENILAIAN
+================================================================================
+
+No | Aspek             | Skor Maksimal | Skor Diperoleh | Persentase
+---|-------------------|---------------|----------------|------------
+1  | Functionality     |      40       |                |         %
+2  | Reliability       |      30       |                |         %
+3  | Usability         |      40       |                |         %
+4  | Efficiency        |      30       |                |         %
+5  | Maintainability   |      25       |                |         %
+6  | Portability       |      20       |                |         %
+7  | Security          |      30       |                |         %
+---|-------------------|---------------|----------------|------------
+   | TOTAL             |     215       |                |         %
+
+================================================================================
+KRITERIA KELAYAKAN
+================================================================================
+Persentase Skor Total:
+- 85% - 100%  : Sangat Layak
+- 70% - 84%   : Layak
+- 55% - 69%   : Cukup Layak
+- 40% - 54%   : Tidak Layak
+- < 40%       : Sangat Tidak Layak
+
+================================================================================
+KESIMPULAN KELAYAKAN
+================================================================================
+Berdasarkan hasil penilaian uji kelayakan sistem SIPASTOB-AB:
+
+Persentase Kelayakan: _______ %
+
+Status Kelayakan:
+[ ] Sangat Layak - Sistem siap digunakan sepenuhnya
+[ ] Layak - Sistem dapat digunakan dengan sedikit penyesuaian
+[ ] Cukup Layak - Sistem perlu beberapa perbaikan sebelum digunakan
+[ ] Tidak Layak - Sistem memerlukan perbaikan signifikan
+[ ] Sangat Tidak Layak - Sistem perlu dikembangkan ulang
+
+================================================================================
+KELEBIHAN SISTEM
+================================================================================
+1. ___________________________________________________________________
+2. ___________________________________________________________________
+3. ___________________________________________________________________
+4. ___________________________________________________________________
+5. ___________________________________________________________________
+
+================================================================================
+KEKURANGAN SISTEM
+================================================================================
+1. ___________________________________________________________________
+2. ___________________________________________________________________
+3. ___________________________________________________________________
+4. ___________________________________________________________________
+5. ___________________________________________________________________
+
+================================================================================
+SARAN PERBAIKAN
+================================================================================
+1. ___________________________________________________________________
+2. ___________________________________________________________________
+3. ___________________________________________________________________
+4. ___________________________________________________________________
+5. ___________________________________________________________________
+
+================================================================================
+REKOMENDASI
+================================================================================
+[ ] Sistem layak digunakan dan diimplementasikan
+[ ] Sistem layak digunakan dengan catatan perbaikan
+[ ] Sistem tidak layak digunakan dan perlu dikembangkan ulang
+
+Catatan Tambahan:
+________________________________________________________________________
+________________________________________________________________________
+________________________________________________________________________
+________________________________________________________________________
+
+================================================================================
+TANDA TANGAN PENGUJI
+================================================================================
+
+          Penguji,                              Penanggung Jawab Sistem,
+
+
+      _____________________                     _____________________
+      Nama:                                     Nama:
+      Tanggal:                                  Tanggal:
+
+
+          Mengetahui,
+          Pimpinan Instansi,
+
+
+      _____________________
+      Nama:
+      Jabatan:
+      Tanggal:
+
+================================================================================
+DOKUMEN INI MERUPAKAN BAGIAN DARI UJI KELAYAKAN SISTEM SIPASTOB-AB
+================================================================================

@@ -14,13 +14,13 @@ class MedicineController extends Controller
     {
         $totalJenisObat = Medicine::count();
         $totalStok = Medicine::sum('stok');
-        $stokRendah = Medicine::where('stok', '<', 50)->count();
+        $stokRendah = Medicine::where('stok', '<=', 10)->count();
         
         // Get recent medicines
         $recentMedicines = Medicine::orderBy('created_at', 'desc')->take(5)->get();
         
         // Get low stock medicines
-        $lowStockMedicines = Medicine::where('stok', '<', 50)->get();
+        $lowStockMedicines = Medicine::where('stok', '<=', 10)->get();
         
         return view('dashboard', compact('totalJenisObat', 'totalStok', 'stokRendah', 'recentMedicines', 'lowStockMedicines'));
     }

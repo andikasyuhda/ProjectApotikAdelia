@@ -1,0 +1,101 @@
+FORM UJI FUNGSIONAL SISTEM
+SIPASTOB-AB
+(Sistem Pencarian Stok Obat Apotek Adelia Bersaudara)
+
+================================================================================
+INFORMASI UMUM
+================================================================================
+Nama Sistem          : SIPASTOB-AB
+Versi Sistem         : 1.0
+Tanggal Pengujian    : _______________________
+Nama Penguji         : _______________________
+Jabatan Penguji      : _______________________
+
+================================================================================
+MODUL 1: AUTENTIKASI PENGGUNA
+================================================================================
+No | Fungsi           | Skenario                      | Hasil Diharapkan              | Hasil | Ket
+---|------------------|-------------------------------|-------------------------------|-------|-----
+1  | Halaman Login    | Mengakses halaman login       | Form login ditampilkan        | [ ]   |
+2  | Login Berhasil   | Input email & password valid  | Masuk ke dashboard            | [ ]   |
+3  | Login Gagal      | Input email/password salah    | Pesan error muncul            | [ ]   |
+4  | Validasi Login   | Submit form kosong            | Pesan validasi muncul         | [ ]   |
+5  | Halaman Register | Akses halaman registrasi      | Form register ditampilkan     | [ ]   |
+6  | Register Berhasil| Isi form dengan data valid    | Akun dibuat & login otomatis  | [ ]   |
+7  | Logout           | Tekan tombol logout           | Keluar & ke halaman login     | [ ]   |
+
+================================================================================
+MODUL 2: DASHBOARD
+================================================================================
+No | Fungsi              | Skenario                    | Hasil Diharapkan              | Hasil | Ket
+---|---------------------|-----------------------------|------------------------------ |-------|-----
+1  | Akses Dashboard     | Buka dashboard setelah login| Statistik lengkap tampil      | [ ]   |
+2  | Total Jenis Obat    | Lihat statistik jenis obat  | Jumlah jenis obat tampil      | [ ]   |
+3  | Total Stok          | Lihat statistik total stok  | Jumlah unit stok tampil       | [ ]   |
+4  | Peringatan Stok     | Lihat obat stok rendah      | Obat stok < 50 tampil         | [ ]   |
+5  | Obat Terbaru        | Lihat obat baru ditambahkan | 5 obat terbaru tampil         | [ ]   |
+
+================================================================================
+MODUL 3: MANAJEMEN DATA OBAT
+================================================================================
+No | Fungsi              | Skenario                    | Hasil Diharapkan              | Hasil | Ket
+---|---------------------|-----------------------------|------------------------------ |-------|-----
+1  | Daftar Obat         | Akses halaman daftar obat   | Tabel obat ditampilkan        | [ ]   |
+2  | Tambah Obat         | Tambah data obat valid      | Data tersimpan di daftar      | [ ]   |
+3  | Validasi Tambah     | Tambah obat field kosong    | Pesan validasi muncul         | [ ]   |
+4  | Edit Obat           | Ubah data obat              | Data berhasil diperbarui      | [ ]   |
+5  | Modal Edit          | Buka modal edit             | Data obat tampil di modal     | [ ]   |
+6  | Hapus Obat          | Hapus data obat             | Data terhapus dari sistem     | [ ]   |
+7  | Konfirmasi Hapus    | Batalkan hapus              | Data tidak terhapus           | [ ]   |
+8  | Status Stok Aman    | Tambah obat stok > 100      | Label "Stok Aman" (hijau)     | [ ]   |
+9  | Status Stok Sedang  | Tambah obat stok 50-100     | Label "Stok Sedang" (kuning)  | [ ]   |
+10 | Status Stok Rendah  | Tambah obat stok < 50       | Label "Stok Rendah" (merah)   | [ ]   |
+
+================================================================================
+MODUL 4: PENCARIAN OBAT
+================================================================================
+No | Fungsi              | Skenario                    | Hasil Diharapkan              | Hasil | Ket
+---|---------------------|-----------------------------|------------------------------ |-------|-----
+1  | Cari Nama Obat      | Cari berdasarkan nama       | Obat sesuai keyword tampil    | [ ]   |
+2  | Cari Lokasi         | Cari berdasarkan lokasi     | Obat sesuai lokasi tampil     | [ ]   |
+3  | Tidak Ditemukan     | Cari keyword tidak ada      | Pesan "Tidak ada data"        | [ ]   |
+4  | Reset Pencarian     | Kosongkan field pencarian   | Semua data tampil kembali     | [ ]   |
+
+================================================================================
+MODUL 5: ANTARMUKA PENGGUNA (UI/UX)
+================================================================================
+No | Fungsi              | Skenario                    | Hasil Diharapkan              | Hasil | Ket
+---|---------------------|-----------------------------|------------------------------ |-------|-----
+1  | Navigasi Sidebar    | Klik menu navigasi          | Pindah ke halaman sesuai      | [ ]   |
+2  | Responsif Desktop   | Akses di browser desktop    | Tampilan menyesuaikan         | [ ]   |
+3  | Notifikasi Sukses   | Aksi berhasil               | Notifikasi sukses muncul      | [ ]   |
+4  | Kecepatan Loading   | Akses halaman               | Loading < 3 detik             | [ ]   |
+
+================================================================================
+RINGKASAN HASIL PENGUJIAN
+================================================================================
+Total Skenario          : 30 Skenario
+Jumlah Berhasil         : _______ Skenario
+Jumlah Gagal            : _______ Skenario
+Persentase Keberhasilan : _______ %
+
+================================================================================
+KESIMPULAN
+================================================================================
+[ ] Sistem berfungsi dengan baik dan layak digunakan
+[ ] Sistem memerlukan perbaikan sebelum digunakan
+
+CATATAN:
+________________________________________________________________________
+________________________________________________________________________
+
+================================================================================
+TANDA TANGAN
+================================================================================
+
+Penguji,                              Penanggung Jawab,
+
+
+_____________________                 _____________________
+Nama:                                 Nama:
+Tanggal:                              Tanggal:
