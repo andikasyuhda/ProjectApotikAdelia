@@ -14,13 +14,13 @@ class MedicineController extends Controller
     {
         $totalJenisObat = Medicine::count();
         $totalStok = Medicine::sum('stok');
-        $stokRendah = Medicine::where('stok', '<=', 10)->count();
+        $stokRendah = Medicine::where('stok', '<', 10)->count();
         
         // Get recent medicines
-        $recentMedicines = Medicine::orderBy('created_at', 'desc')->take(5)->get();
+        $recentMedicines = Medicine::orderBy('nama_obat', 'asc')->take(5)->get();
         
         // Get low stock medicines
-        $lowStockMedicines = Medicine::where('stok', '<=', 10)->get();
+        $lowStockMedicines = Medicine::where('stok', '<', 10)->get();
         
         return view('dashboard', compact('totalJenisObat', 'totalStok', 'stokRendah', 'recentMedicines', 'lowStockMedicines'));
     }
@@ -32,24 +32,25 @@ class MedicineController extends Controller
     {
         $search = $request->get('search');
         $status = $request->get('status');
-        $sort = $request->get('sort', 'created_at');
-        $direction = $request->get('direction', 'desc');
+        $sort = $request->get('sort', 'nama_obat');
+        $direction = $request->get('direction', 'asc');
         
         // Validate sort column
         $allowedSorts = ['nama_obat', 'stok', 'lokasi', 'created_at'];
         if (!in_array($sort, $allowedSorts)) {
-            $sort = 'created_at';
+            $sort = 'nama_obat';
         }
         
         $query = Medicine::search($search);
         
-        // Apply status filter based on stock levels
-        if ($status === 'aman') {
-            $query->where('stok', '>', 100);
+        // Apply status filter based on new stock thresholds
+        // Rendah: < 10, Sedang: 10-30, Tinggi: > 30
+        if ($status === 'tinggi') {
+            $query->where('stok', '>', 30);
         } elseif ($status === 'sedang') {
-            $query->whereBetween('stok', [50, 100]);
+            $query->whereBetween('stok', [10, 30]);
         } elseif ($status === 'rendah') {
-            $query->where('stok', '<', 50);
+            $query->where('stok', '<', 10);
         }
         
         $medicines = $query->orderBy($sort, $direction === 'desc' ? 'desc' : 'asc')

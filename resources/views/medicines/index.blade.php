@@ -41,10 +41,10 @@
               {{ !request('status') ? 'background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink)); color: white;' : 'background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border-color);' }}">
         Semua <span style="margin-left: 4px; padding: 2px 8px; border-radius: 10px; font-size: 12px; {{ !request('status') ? 'background: rgba(255,255,255,0.2);' : 'background: var(--bg-main);' }}">{{ $totalCount ?? $medicines->total() }}</span>
     </a>
-    <a href="{{ route('medicines.index', array_merge(request()->only('search'), ['status' => 'aman'])) }}" 
+    <a href="{{ route('medicines.index', array_merge(request()->only('search'), ['status' => 'tinggi'])) }}" 
        style="padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s;
-              {{ request('status') === 'aman' ? 'background: linear-gradient(135deg, #10B981, #059669); color: white;' : 'background: var(--bg-card); color: #10B981; border: 1px solid #D1FAE5;' }}">
-        Stok Aman
+              {{ request('status') === 'tinggi' ? 'background: linear-gradient(135deg, #10B981, #059669); color: white;' : 'background: var(--bg-card); color: #10B981; border: 1px solid #D1FAE5;' }}">
+        Stok Tinggi
     </a>
     <a href="{{ route('medicines.index', array_merge(request()->only('search'), ['status' => 'sedang'])) }}" 
        style="padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s;
@@ -69,18 +69,18 @@
     </div>
     <div style="display: flex; align-items: center; gap: 6px; font-size: 13px;">
         <span style="width: 10px; height: 10px; border-radius: 3px; background: #10B981;"></span>
-        <span style="color: #10B981; font-weight: 600;">Aman</span>
-        <span style="color: #64748b;">= lebih dari 100 unit</span>
+        <span style="color: #10B981; font-weight: 600;">Tinggi</span>
+        <span style="color: #64748b;">= lebih dari 30 unit</span>
     </div>
     <div style="display: flex; align-items: center; gap: 6px; font-size: 13px;">
         <span style="width: 10px; height: 10px; border-radius: 3px; background: #F59E0B;"></span>
         <span style="color: #F59E0B; font-weight: 600;">Sedang</span>
-        <span style="color: #64748b;">= 50 - 100 unit</span>
+        <span style="color: #64748b;">= 10 - 30 unit</span>
     </div>
     <div style="display: flex; align-items: center; gap: 6px; font-size: 13px;">
         <span style="width: 10px; height: 10px; border-radius: 3px; background: #EF4444;"></span>
         <span style="color: #EF4444; font-weight: 600;">Rendah</span>
-        <span style="color: #64748b;">= kurang dari 50 unit</span>
+        <span style="color: #64748b;">= kurang dari 10 unit</span>
     </div>
 </div>
 
@@ -141,11 +141,6 @@
                     <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <a href="{{ route('medicines.history', $medicine) }}" class="btn-icon" style="background: linear-gradient(135deg, #E0E7FF, #C7D2FE); color: #4338CA;" title="Riwayat Stok">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
             <button class="btn-icon btn-edit" onclick="openEditModal({{ $medicine->id }}, '{{ addslashes($medicine->nama_obat) }}', {{ $medicine->stok }}, '{{ addslashes($medicine->lokasi) }}')" title="Edit">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

@@ -51,11 +51,12 @@
 </div>
 
 <!-- Stock Distribution Chart -->
+
 @php
-    $stokAman = \App\Models\Medicine::where('stok', '>', 100)->count();
-    $stokSedang = \App\Models\Medicine::whereBetween('stok', [50, 100])->count();
+    $stokTinggi = \App\Models\Medicine::where('stok', '>', 30)->count();
+    $stokSedang = \App\Models\Medicine::whereBetween('stok', [10, 30])->count();
     $total = $totalJenisObat ?: 1;
-    $amanPct = round($stokAman / $total * 100);
+    $tinggiPct = round($stokTinggi / $total * 100);
     $sedangPct = round($stokSedang / $total * 100);
     $rendahPct = round($stokRendah / $total * 100);
 @endphp
@@ -70,9 +71,9 @@
                 height: 100%;
                 border-radius: 50%;
                 background: conic-gradient(
-                    #10B981 0deg {{ $amanPct * 3.6 }}deg,
-                    #F59E0B {{ $amanPct * 3.6 }}deg {{ ($amanPct + $sedangPct) * 3.6 }}deg,
-                    #EF4444 {{ ($amanPct + $sedangPct) * 3.6 }}deg 360deg
+                    #10B981 0deg {{ $tinggiPct * 3.6 }}deg,
+                    #F59E0B {{ $tinggiPct * 3.6 }}deg {{ ($tinggiPct + $sedangPct) * 3.6 }}deg,
+                    #EF4444 {{ ($tinggiPct + $sedangPct) * 3.6 }}deg 360deg
                 );
                 position: relative;
             ">
@@ -99,7 +100,7 @@
         <div style="display: flex; justify-content: center; gap: 16px; margin-top: 20px; flex-wrap: wrap;">
             <div style="display: flex; align-items: center; gap: 6px;">
                 <div style="width: 12px; height: 12px; border-radius: 3px; background: #10B981;"></div>
-                <span style="font-size: 12px; color: #64748B;">Aman ({{ $stokAman }})</span>
+                <span style="font-size: 12px; color: #64748B;">Tinggi ({{ $stokTinggi }})</span>
             </div>
             <div style="display: flex; align-items: center; gap: 6px;">
                 <div style="width: 12px; height: 12px; border-radius: 3px; background: #F59E0B;"></div>
@@ -116,20 +117,20 @@
     <div class="content-card" style="background:#fff;border-radius:14px;padding:24px;box-shadow:0 10px 25px rgba(15,23,42,.06);">
         <h3 style="font-size:16px;font-weight:700;color:#0F172A;margin-bottom:20px;">Persentase Stok</h3>
         <div style="display: flex; flex-direction: column; gap: 16px;">
-            <!-- Aman Bar -->
+            <!-- Tinggi Bar -->
             <div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 14px; font-weight: 600; color: #10B981;">Stok Aman (>100)</span>
-                    <span style="font-size: 14px; font-weight: 600; color: #10B981;">{{ $amanPct }}%</span>
+                    <span style="font-size: 14px; font-weight: 600; color: #10B981;">Stok Tinggi (>30)</span>
+                    <span style="font-size: 14px; font-weight: 600; color: #10B981;">{{ $tinggiPct }}%</span>
                 </div>
                 <div style="height: 12px; background: #E5E7EB; border-radius: 6px; overflow: hidden;">
-                    <div style="height: 100%; width: {{ $amanPct }}%; background: linear-gradient(90deg, #10B981, #34D399); border-radius: 6px; transition: width 1s ease;"></div>
+                    <div style="height: 100%; width: {{ $tinggiPct }}%; background: linear-gradient(90deg, #10B981, #34D399); border-radius: 6px; transition: width 1s ease;"></div>
                 </div>
             </div>
             <!-- Sedang Bar -->
             <div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 14px; font-weight: 600; color: #F59E0B;">Stok Sedang (50-100)</span>
+                    <span style="font-size: 14px; font-weight: 600; color: #F59E0B;">Stok Sedang (10-30)</span>
                     <span style="font-size: 14px; font-weight: 600; color: #F59E0B;">{{ $sedangPct }}%</span>
                 </div>
                 <div style="height: 12px; background: #E5E7EB; border-radius: 6px; overflow: hidden;">
@@ -139,7 +140,7 @@
             <!-- Rendah Bar -->
             <div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 14px; font-weight: 600; color: #EF4444;">Stok Rendah (<50)</span>
+                    <span style="font-size: 14px; font-weight: 600; color: #EF4444;">Stok Rendah (<10)</span>
                     <span style="font-size: 14px; font-weight: 600; color: #EF4444;">{{ $rendahPct }}%</span>
                 </div>
                 <div style="height: 12px; background: #E5E7EB; border-radius: 6px; overflow: hidden;">
@@ -228,7 +229,7 @@
             ['label'=>'Jenis Obat','value'=>$totalJenisObat,'color'=>'#3B82F6'],
             ['label'=>'Total Unit','value'=>$totalStok,'color'=>'#10B981'],
             ['label'=>'Stok Rendah','value'=>$stokRendah,'color'=>'#EF4444'],
-            ['label'=>'Stok Aman','value'=>$totalJenisObat - $stokRendah,'color'=>'#0F172A'],
+            ['label'=>'Stok Tinggi','value'=>$stokTinggi,'color'=>'#10B981'],
         ];
     @endphp
 

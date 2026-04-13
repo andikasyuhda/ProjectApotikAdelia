@@ -35,9 +35,9 @@ class Medicine extends Model
      */
     public function getStockStatusAttribute()
     {
-        if ($this->stok <= 10) {
+        if ($this->stok < 10) {
             return 'rendah';
-        } elseif ($this->stok <= 20) {
+        } elseif ($this->stok <= 30) {
             return 'sedang';
         } else {
             return 'tinggi';

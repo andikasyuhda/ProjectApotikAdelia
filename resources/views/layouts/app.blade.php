@@ -514,6 +514,11 @@
             color: #065F46;
         }
 
+        .status-badge.tinggi {
+            background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+            color: #065F46;
+        }
+
         .status-badge.sedang {
             background: linear-gradient(135deg, #FEF3C7, #FDE68A);
             color: #92400E;
