@@ -55,7 +55,7 @@ class MedicineController extends Controller
         $validated = $request->validate([
             'nama_obat' => 'required|string|max:255',
             'stok' => 'required|integer|min:0',
-            'lokasi' => 'required|string|max:255',
+            'lokasi' => 'nullable|string|max:255',
         ]);
 
         Medicine::create($validated);
@@ -72,7 +72,7 @@ class MedicineController extends Controller
         $validated = $request->validate([
             'nama_obat' => 'required|string|max:255',
             'stok' => 'required|integer|min:0',
-            'lokasi' => 'required|string|max:255',
+            'lokasi' => 'nullable|string|max:255',
         ]);
 
         $medicine->update($validated);

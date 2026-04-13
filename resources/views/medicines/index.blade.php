@@ -100,8 +100,9 @@
             </div>
 
             <div class="form-group">
-                <label>Lokasi</label>
-                <input type="text" name="lokasi" id="edit_lokasi" required>
+                <label>Lokasi (Otomatis)</label>
+                <input type="text" name="lokasi" id="edit_lokasi" readonly style="background-color: #f1f5f9; cursor: not-allowed;">
+                <small style="color: #64748B; font-size: 0.8rem; margin-top: 4px; display: block;">Rak akan diperbarui otomatis berdasarkan nama obat.</small>
             </div>
 
             <div class="modal-actions">

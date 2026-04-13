@@ -16,6 +16,19 @@ class Medicine extends Model
     ];
 
     /**
+     * The "booted" method of the model.
+     */
+    protected static function booted()
+    {
+        static::saving(function ($medicine) {
+            if ($medicine->nama_obat) {
+                $firstLetter = strtoupper(substr(trim($medicine->nama_obat), 0, 1));
+                $medicine->lokasi = "Rak " . $firstLetter;
+            }
+        });
+    }
+
+    /**
      * Get the stock status based on quantity
      * 
      * @return string

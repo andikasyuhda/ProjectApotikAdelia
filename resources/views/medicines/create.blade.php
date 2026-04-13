@@ -23,8 +23,9 @@
         </div>
 
         <div class="form-group">
-            <label>Lokasi</label>
-            <input type="text" name="lokasi" placeholder="Contoh: Rak A1 - Lantai 1" required>
+            <label>Lokasi (Otomatis)</label>
+            <input type="text" name="lokasi" placeholder="Otomatis terisi (Rak A, Rak B, dst.)" readonly style="background-color: #f1f5f9; cursor: not-allowed;">
+            <small style="color: #64748B; font-size: 0.8rem; margin-top: 4px; display: block;">Rak akan otomatis menyesuaikan dengan huruf pertama nama obat.</small>
         </div>
 
         <div style="display: flex; gap: 12px; margin-top: 28px;">
