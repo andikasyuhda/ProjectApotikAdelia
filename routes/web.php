@@ -9,8 +9,8 @@ Route::get('/', function () {
     return Auth::check() ? redirect()->route('medicines.index') : redirect()->route('login');
 });
 
-// Authentication routes
-Auth::routes();
+// Authentication routes (registration disabled — admin manages users)
+Auth::routes(['register' => false]);
 
 // Protected routes (require authentication)
 Route::middleware(['auth'])->group(function () {

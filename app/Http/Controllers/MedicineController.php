@@ -14,13 +14,13 @@ class MedicineController extends Controller
     {
         $totalJenisObat = Medicine::count();
         $totalStok = Medicine::sum('stok');
-        $stokRendah = Medicine::where('stok', '<', 10)->count();
+        $stokRendah = Medicine::where('stok', '<', Medicine::STOK_RENDAH)->count();
         
         // Get recent medicines
-        $recentMedicines = Medicine::orderBy('nama_obat', 'asc')->take(5)->get();
+        $recentMedicines = Medicine::orderBy('created_at', 'desc')->take(5)->get();
         
-        // Get low stock medicines
-        $lowStockMedicines = Medicine::where('stok', '<', 10)->get();
+        // Get low stock medicines (limit to avoid loading unbounded result set)
+        $lowStockMedicines = Medicine::where('stok', '<', Medicine::STOK_RENDAH)->orderBy('stok', 'asc')->limit(50)->get();
         
         return view('dashboard', compact('totalJenisObat', 'totalStok', 'stokRendah', 'recentMedicines', 'lowStockMedicines'));
     }
@@ -32,25 +32,24 @@ class MedicineController extends Controller
     {
         $search = $request->get('search');
         $status = $request->get('status');
-        $sort = $request->get('sort', 'nama_obat');
-        $direction = $request->get('direction', 'asc');
+        $sort = $request->get('sort', 'created_at');
+        $direction = $request->get('direction', 'desc');
         
         // Validate sort column
         $allowedSorts = ['nama_obat', 'stok', 'lokasi', 'created_at'];
         if (!in_array($sort, $allowedSorts)) {
-            $sort = 'nama_obat';
+            $sort = 'created_at';
         }
         
         $query = Medicine::search($search);
         
-        // Apply status filter based on new stock thresholds
-        // Rendah: < 10, Sedang: 10-30, Tinggi: > 30
+        // Apply status filter based on stock levels
         if ($status === 'tinggi') {
-            $query->where('stok', '>', 30);
+            $query->where('stok', '>', Medicine::STOK_TINGGI);
         } elseif ($status === 'sedang') {
-            $query->whereBetween('stok', [10, 30]);
+            $query->whereBetween('stok', [Medicine::STOK_RENDAH, Medicine::STOK_TINGGI]);
         } elseif ($status === 'rendah') {
-            $query->where('stok', '<', 10);
+            $query->where('stok', '<', Medicine::STOK_RENDAH);
         }
         
         $medicines = $query->orderBy($sort, $direction === 'desc' ? 'desc' : 'asc')
@@ -79,7 +78,7 @@ class MedicineController extends Controller
         $validated = $request->validate([
             'nama_obat' => 'required|string|max:255',
             'stok' => 'required|integer|min:0',
-            'lokasi' => 'nullable|string|max:255',
+            'lokasi' => 'required|string|max:255',
         ]);
 
         Medicine::create($validated);
@@ -96,7 +95,7 @@ class MedicineController extends Controller
         $validated = $request->validate([
             'nama_obat' => 'required|string|max:255',
             'stok' => 'required|integer|min:0',
-            'lokasi' => 'nullable|string|max:255',
+            'lokasi' => 'required|string|max:255',
         ]);
 
         $medicine->update($validated);
@@ -122,8 +121,8 @@ class MedicineController extends Controller
     public function adjustStock(Request $request, Medicine $medicine)
     {
         $validated = $request->validate([
-            'change_amount' => 'required|integer',
-            'change_type' => 'required|in:in,out,adjust',
+            'change_amount' => 'required|integer|min:1',
+            'change_type' => 'required|in:in,out',
             'notes' => 'nullable|string|max:255',
         ]);
 
@@ -162,10 +161,19 @@ class MedicineController extends Controller
     /**
      * Show stock history for a medicine
      */
-    public function history(Medicine $medicine)
+    public function history(Request $request, Medicine $medicine)
     {
-        $histories = $medicine->stockHistories()->with('user')->paginate(20);
-        
+        $query = $medicine->stockHistories()->with('user');
+
+        if ($request->from) {
+            $query->whereDate('created_at', '>=', $request->from);
+        }
+        if ($request->to) {
+            $query->whereDate('created_at', '<=', $request->to);
+        }
+
+        $histories = $query->paginate(20)->withQueryString();
+
         return view('medicines.history', compact('medicine', 'histories'));
     }
 

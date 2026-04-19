@@ -41,7 +41,7 @@
               {{ !request('status') ? 'background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink)); color: white;' : 'background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border-color);' }}">
         Semua <span style="margin-left: 4px; padding: 2px 8px; border-radius: 10px; font-size: 12px; {{ !request('status') ? 'background: rgba(255,255,255,0.2);' : 'background: var(--bg-main);' }}">{{ $totalCount ?? $medicines->total() }}</span>
     </a>
-    <a href="{{ route('medicines.index', array_merge(request()->only('search'), ['status' => 'tinggi'])) }}" 
+    <a href="{{ route('medicines.index', array_merge(request()->only('search'), ['status' => 'tinggi'])) }}"
        style="padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s;
               {{ request('status') === 'tinggi' ? 'background: linear-gradient(135deg, #10B981, #059669); color: white;' : 'background: var(--bg-card); color: #10B981; border: 1px solid #D1FAE5;' }}">
         Stok Tinggi
@@ -70,12 +70,12 @@
     <div style="display: flex; align-items: center; gap: 6px; font-size: 13px;">
         <span style="width: 10px; height: 10px; border-radius: 3px; background: #10B981;"></span>
         <span style="color: #10B981; font-weight: 600;">Tinggi</span>
-        <span style="color: #64748b;">= lebih dari 30 unit</span>
+        <span style="color: #64748b;">= lebih dari 20 unit</span>
     </div>
     <div style="display: flex; align-items: center; gap: 6px; font-size: 13px;">
         <span style="width: 10px; height: 10px; border-radius: 3px; background: #F59E0B;"></span>
         <span style="color: #F59E0B; font-weight: 600;">Sedang</span>
-        <span style="color: #64748b;">= 10 - 30 unit</span>
+        <span style="color: #64748b;">= 10 - 20 unit</span>
     </div>
     <div style="display: flex; align-items: center; gap: 6px; font-size: 13px;">
         <span style="width: 10px; height: 10px; border-radius: 3px; background: #EF4444;"></span>
@@ -136,18 +136,23 @@
             {{ $medicine->lokasi }}
         </div>
         <div class="action-buttons">
-            <button class="btn-icon" style="background: linear-gradient(135deg, #D1FAE5, #A7F3D0); color: #065F46;" onclick="openAdjustModal({{ $medicine->id }}, '{{ addslashes($medicine->nama_obat) }}', {{ $medicine->stok }})" title="Sesuaikan Stok">
+            <button class="btn-icon" style="background: linear-gradient(135deg, #D1FAE5, #A7F3D0); color: #065F46;" onclick="openAdjustModal({{ $medicine->id }}, {{ Illuminate\Support\Js::from($medicine->nama_obat) }}, {{ $medicine->stok }})" title="Sesuaikan Stok">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <button class="btn-icon btn-edit" onclick="openEditModal({{ $medicine->id }}, '{{ addslashes($medicine->nama_obat) }}', {{ $medicine->stok }}, '{{ addslashes($medicine->lokasi) }}')" title="Edit">
+            <a href="{{ route('medicines.history', $medicine) }}" class="btn-icon" style="background: linear-gradient(135deg, #E0E7FF, #C7D2FE); color: #4338CA;" title="Riwayat Stok">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <button class="btn-icon btn-edit" onclick="openEditModal({{ $medicine->id }}, {{ Illuminate\Support\Js::from($medicine->nama_obat) }}, {{ $medicine->stok }}, {{ Illuminate\Support\Js::from($medicine->lokasi) }})" title="Edit">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <button class="btn-icon btn-delete" onclick="deleteMedicine({{ $medicine->id }}, '{{ addslashes($medicine->nama_obat) }}')" title="Delete">
+            <button class="btn-icon btn-delete" onclick="deleteMedicine({{ $medicine->id }}, {{ Illuminate\Support\Js::from($medicine->nama_obat) }})" title="Delete">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <line x1="10" y1="11" x2="10" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -266,9 +271,8 @@
             </div>
 
             <div class="form-group">
-                <label>Lokasi (Otomatis)</label>
-                <input type="text" name="lokasi" id="edit_lokasi" readonly style="background-color: #f1f5f9; cursor: not-allowed;">
-                <small style="color: #64748B; font-size: 0.8rem; margin-top: 4px; display: block;">Rak akan diperbarui otomatis berdasarkan nama obat.</small>
+                <label>Lokasi</label>
+                <input type="text" name="lokasi" id="edit_lokasi" required>
             </div>
 
             <div class="modal-actions">
@@ -317,49 +321,56 @@
 <div class="modal" id="adjustModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Sesuaikan Stok</h2>
+            <h2 id="adjustModalTitle">Perubahan Stok Obat</h2>
         </div>
-        <div id="adjustMedicineName" style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px;"></div>
+        <div id="adjustMedicineName" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px;"></div>
         <div style="text-align: center; margin-bottom: 24px;">
             <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Stok Saat Ini</div>
             <div id="adjustCurrentStock" style="font-size: 42px; font-weight: 700; background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></div>
+            <div style="font-size: 13px; color: var(--text-muted);">unit</div>
         </div>
         <form id="adjustForm" method="POST">
             @csrf
-            
+
             <div class="form-group">
-                <label>Tipe Perubahan</label>
+                <label>Jenis Transaksi</label>
                 <div style="display: flex; gap: 10px;">
-                    <label style="flex: 1; padding: 14px; border: 2px solid var(--border-color); border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s;">
+                    <label id="label_in" style="flex: 1; padding: 16px 14px; border: 2px solid var(--border-color); border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s;">
                         <input type="radio" name="change_type" value="in" style="display: none;" onchange="updateAdjustType(this)">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" style="margin-bottom: 4px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" style="margin-bottom: 6px; display: block; margin-left: auto; margin-right: auto;">
                             <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <div style="font-size: 13px; font-weight: 600; color: #10B981;">Stok Masuk</div>
+                        <div style="font-size: 14px; font-weight: 700; color: #10B981;">Tambah Obat</div>
+                        <div style="font-size: 11px; color: #6B7280; margin-top: 2px;">Stok Masuk</div>
                     </label>
-                    <label style="flex: 1; padding: 14px; border: 2px solid var(--border-color); border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s;">
+                    <label id="label_out" style="flex: 1; padding: 16px 14px; border: 2px solid var(--border-color); border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s;">
                         <input type="radio" name="change_type" value="out" style="display: none;" onchange="updateAdjustType(this)">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" style="margin-bottom: 4px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" style="margin-bottom: 6px; display: block; margin-left: auto; margin-right: auto;">
                             <path d="M12 5v14M19 12l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <div style="font-size: 13px; font-weight: 600; color: #EF4444;">Stok Keluar</div>
+                        <div style="font-size: 14px; font-weight: 700; color: #EF4444;">Ambil Obat</div>
+                        <div style="font-size: 11px; color: #6B7280; margin-top: 2px;">Stok Keluar</div>
                     </label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Jumlah</label>
-                <input type="number" name="change_amount" id="adjust_amount" min="1" required placeholder="Masukkan jumlah">
+                <label id="amountLabel">Jumlah</label>
+                <input type="number" name="change_amount" id="adjust_amount" min="1" required placeholder="Masukkan jumlah unit">
             </div>
 
             <div class="form-group">
                 <label>Catatan (opsional)</label>
-                <input type="text" name="notes" placeholder="Contoh: Restok dari supplier">
+                <input type="text" name="notes" id="adjust_notes" placeholder="Contoh: Restok dari supplier">
+            </div>
+
+            <div id="stockPreview" style="display:none; background: var(--bg-main); border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 14px; color: var(--text-secondary);">
+                Stok setelah: <strong id="stockAfter" style="font-size: 16px; color: var(--text-primary);"></strong>
             </div>
 
             <div class="modal-actions">
                 <button type="button" class="btn-secondary" onclick="closeAdjustModal()">Batal</button>
-                <button type="submit" class="btn-primary">Simpan</button>
+                <button type="submit" class="btn-primary" id="adjustSubmitBtn">Simpan</button>
             </div>
         </form>
     </div>
@@ -410,11 +421,16 @@
     });
 
     // Stock adjustment functions
+    let currentStok = 0;
+
     function openAdjustModal(id, nama, stok) {
+        currentStok = stok;
         document.getElementById('adjustForm').action = `/medicines/${id}/adjust-stock`;
         document.getElementById('adjustMedicineName').textContent = nama;
         document.getElementById('adjustCurrentStock').textContent = stok;
         document.getElementById('adjust_amount').value = '';
+        document.getElementById('adjust_notes').value = '';
+        document.getElementById('stockPreview').style.display = 'none';
         // Reset radio buttons
         document.querySelectorAll('#adjustModal input[name="change_type"]').forEach(r => {
             r.checked = false;
@@ -436,11 +452,32 @@
         if (radio.value === 'in') {
             radio.closest('label').style.borderColor = '#10B981';
             radio.closest('label').style.background = 'rgba(16, 185, 129, 0.1)';
+            document.getElementById('adjust_notes').placeholder = 'Contoh: Restok dari supplier';
+            document.getElementById('amountLabel').textContent = 'Jumlah Obat Ditambahkan';
         } else {
             radio.closest('label').style.borderColor = '#EF4444';
             radio.closest('label').style.background = 'rgba(239, 68, 68, 0.1)';
+            document.getElementById('adjust_notes').placeholder = 'Contoh: Diambil oleh pasien / kadaluarsa';
+            document.getElementById('amountLabel').textContent = 'Jumlah Obat Diambil';
         }
+        updateStockPreview();
     }
+
+    function updateStockPreview() {
+        const amountInput = document.getElementById('adjust_amount');
+        const type = document.querySelector('#adjustModal input[name="change_type"]:checked');
+        if (!type || !amountInput.value) {
+            document.getElementById('stockPreview').style.display = 'none';
+            return;
+        }
+        const amount = parseInt(amountInput.value) || 0;
+        let after = type.value === 'in' ? currentStok + amount : Math.max(0, currentStok - amount);
+        document.getElementById('stockAfter').textContent = after + ' unit';
+        document.getElementById('stockAfter').style.color = after < 10 ? '#EF4444' : after <= 20 ? '#F59E0B' : '#10B981';
+        document.getElementById('stockPreview').style.display = 'block';
+    }
+
+    document.getElementById('adjust_amount').addEventListener('input', updateStockPreview);
 
     // Search Autocomplete
     const searchInput = document.getElementById('searchInput');
@@ -465,21 +502,27 @@
                         return;
                     }
 
-                    dropdown.innerHTML = data.map(med => `
-                        <div class="autocomplete-item" style="
-                            padding: 14px 18px;
-                            cursor: pointer;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            border-bottom: 1px solid #f1f5f9;
-                            transition: background 0.15s;
-                        " onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'" 
-                           onclick="selectMedicine('${med.nama_obat.replace(/'/g, "\\'")}')">
-                            <span style="font-weight: 500; color: #0f172a;">${highlightMatch(med.nama_obat, '${query}')}</span>
-                            <span style="font-size: 13px; color: ${med.stok < 50 ? '#ef4444' : '#10b981'}; font-weight: 600;">${med.stok} unit</span>
-                        </div>
-                    `).join('');
+                    dropdown.innerHTML = '';
+                    data.forEach(med => {
+                        const item = document.createElement('div');
+                        item.className = 'autocomplete-item';
+                        item.style.cssText = 'padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f1f5f9;transition:background 0.15s;';
+                        item.addEventListener('mouseover', () => item.style.background = '#f8fafc');
+                        item.addEventListener('mouseout', () => item.style.background = 'transparent');
+                        item.addEventListener('click', () => selectMedicine(med.nama_obat));
+
+                        const nameSpan = document.createElement('span');
+                        nameSpan.style.cssText = 'font-weight:500;color:#0f172a;';
+                        nameSpan.innerHTML = highlightMatch(escapeHtml(med.nama_obat), escapeHtml(query));
+
+                        const stockSpan = document.createElement('span');
+                        stockSpan.style.cssText = `font-size:13px;color:${med.stok < 10 ? '#ef4444' : med.stok <= 20 ? '#f59e0b' : '#10b981'};font-weight:600;`;
+                        stockSpan.textContent = med.stok + ' unit';
+
+                        item.appendChild(nameSpan);
+                        item.appendChild(stockSpan);
+                        dropdown.appendChild(item);
+                    });
                     dropdown.style.display = 'block';
                 })
                 .catch(() => {
@@ -488,9 +531,15 @@
         }, 250);
     });
 
-    function highlightMatch(text, query) {
-        const regex = new RegExp(`(${query})`, 'gi');
-        return text.replace(regex, '<mark style="background: #fef08a; padding: 0 2px; border-radius: 2px;">$1</mark>');
+    function escapeHtml(str) {
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+
+    function highlightMatch(escapedText, escapedQuery) {
+        if (!escapedQuery) return escapedText;
+        const safeQuery = escapedQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${safeQuery})`, 'gi');
+        return escapedText.replace(regex, '<mark style="background:#fef08a;padding:0 2px;border-radius:2px;">$1</mark>');
     }
 
     function selectMedicine(name) {

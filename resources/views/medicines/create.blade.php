@@ -19,38 +19,41 @@
                 </svg>
                 Nama Obat
             </label>
-            <input type="text" name="nama_obat" placeholder="Contoh: Paracetamol 500mg" required 
+            <input type="text" name="nama_obat" id="namaObatInput" placeholder="Contoh: Paracetamol 500mg" required
                    style="width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 15px; transition: all 0.2s; box-sizing: border-box;"
                    onfocus="this.style.borderColor='var(--primary-pink)'; this.style.boxShadow='0 0 0 3px rgba(233,30,99,0.1)'"
-                   onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                   onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'"
+                   oninput="autoFillLokasi(this.value)">
         </div>
 
-        <div class="form-group" style="margin-bottom: 24px;">
-            <label style="display: block; font-size: 14px; font-weight: 600; color: #334155; margin-bottom: 8px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;">
-                    <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Jumlah Stok
-            </label>
-            <input type="number" name="stok" placeholder="0" min="0" required 
-                   style="width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 15px; transition: all 0.2s; box-sizing: border-box;"
-                   onfocus="this.style.borderColor='var(--primary-pink)'; this.style.boxShadow='0 0 0 3px rgba(233,30,99,0.1)'"
-                   onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
-        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+            <div class="form-group">
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;">
+                        <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Jumlah Stok
+                </label>
+                <input type="number" name="stok" placeholder="0" min="0" required 
+                       style="width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 15px; transition: all 0.2s; box-sizing: border-box;"
+                       onfocus="this.style.borderColor='var(--primary-pink)'; this.style.boxShadow='0 0 0 3px rgba(233,30,99,0.1)'"
+                       onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+            </div>
 
-        <div class="form-group" style="margin-bottom: 24px;">
-            <label style="display: block; font-size: 14px; font-weight: 600; color: #334155; margin-bottom: 8px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="12" cy="10" r="3" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Lokasi (Otomatis)
-            </label>
-            <input type="text" name="lokasi" placeholder="Otomatis terisi (Rak A, Rak B, dst.)" readonly 
-                   style="width: 100%; padding: 14px 16px; border: 2px solid #f1f5f9; border-radius: 12px; font-size: 15px; background-color: #f8fafc; color: #64748b; cursor: not-allowed; box-sizing: border-box;">
-            <small style="color: #64748B; font-size: 0.8rem; margin-top: 6px; display: block; padding-left: 2px;">
-                ℹ️ Rak akan otomatis menyesuaikan dengan huruf pertama nama obat.
-            </small>
+            <div class="form-group">
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="10" r="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Lokasi
+                </label>
+                <input type="text" name="lokasi" id="lokasiInput" placeholder="Otomatis dari nama obat"
+                       style="width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 15px; transition: all 0.2s; box-sizing: border-box; background: #f8fafc;"
+                       onfocus="this.style.borderColor='var(--primary-pink)'; this.style.boxShadow='0 0 0 3px rgba(233,30,99,0.1)'"
+                       onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">Terisi otomatis, bisa diubah manual</div>
+            </div>
         </div>
 
         <div style="display: flex; gap: 12px; margin-top: 32px; justify-content: flex-end;">
@@ -69,4 +72,20 @@
         </div>
     </form>
 </div>
+
+<script>
+function autoFillLokasi(namaObat) {
+    const lokasiInput = document.getElementById('lokasiInput');
+    if (namaObat.trim().length > 0) {
+        const huruf = namaObat.trim()[0].toUpperCase();
+        lokasiInput.value = 'Rak ' + huruf;
+        lokasiInput.style.background = '#f0fdf4';
+        lokasiInput.style.borderColor = '#10b981';
+    } else {
+        lokasiInput.value = '';
+        lokasiInput.style.background = '#f8fafc';
+        lokasiInput.style.borderColor = '#e2e8f0';
+    }
+}
+</script>
 @endsection

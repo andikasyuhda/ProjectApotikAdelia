@@ -15,85 +15,62 @@ class Medicine extends Model
         'lokasi',
     ];
 
+    // Stock thresholds (single source of truth)
+    const STOK_RENDAH = 10;  // < 10
+    const STOK_TINGGI = 20;  // > 20
+
     /**
-     * The "booted" method of the model.
+     * Auto-set lokasi based on first letter of nama_obat.
      */
-    protected static function booted()
+    protected static function booted(): void
     {
-        static::saving(function ($medicine) {
+        static::saving(function (Medicine $medicine) {
             if ($medicine->nama_obat) {
-                $firstLetter = strtoupper(substr(trim($medicine->nama_obat), 0, 1));
-                $medicine->lokasi = "Rak " . $firstLetter;
+                $medicine->lokasi = 'Rak ' . strtoupper(substr(trim($medicine->nama_obat), 0, 1));
             }
         });
     }
 
-    /**
-     * Get the stock status based on quantity
-     * 
-     * @return string
-     */
-    public function getStockStatusAttribute()
+    public function getStockStatusAttribute(): string
     {
-        if ($this->stok < 10) {
-            return 'rendah';
-        } elseif ($this->stok <= 30) {
+        if ($this->stok > self::STOK_TINGGI) {
+            return 'tinggi';
+        } elseif ($this->stok >= self::STOK_RENDAH) {
             return 'sedang';
         } else {
-            return 'tinggi';
+            return 'rendah';
         }
     }
 
-    /**
-     * Get the stock status color
-     * 
-     * @return string
-     */
-    public function getStockColorAttribute()
+    public function getStockColorAttribute(): string
     {
         return match($this->stock_status) {
             'tinggi' => 'success',
             'sedang' => 'warning',
             'rendah' => 'danger',
-            default => 'secondary',
+            default  => 'secondary',
         };
     }
 
-    /**
-     * Get the stock status label
-     * 
-     * @return string
-     */
-    public function getStockLabelAttribute()
+    public function getStockLabelAttribute(): string
     {
         return match($this->stock_status) {
             'tinggi' => 'Stok Tinggi',
             'sedang' => 'Stok Sedang',
             'rendah' => 'Stok Rendah',
-            default => 'Unknown',
+            default  => 'Unknown',
         };
     }
 
-    /**
-     * Search medicines by name or location
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $search
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function scopeSearch($query, $search)
     {
         if ($search) {
             return $query->where('nama_obat', 'like', "%{$search}%")
-                        ->orWhere('lokasi', 'like', "%{$search}%");
+                         ->orWhere('lokasi', 'like', "%{$search}%");
         }
-        
         return $query;
     }
 
-    /**
-     * Get all stock history records for this medicine
-     */
     public function stockHistories()
     {
         return $this->hasMany(StockHistory::class)->orderBy('created_at', 'desc');

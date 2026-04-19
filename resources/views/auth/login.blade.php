@@ -229,12 +229,7 @@
                 font-size: 14px;
                 color: #64748B;
             ">
-                Belum punya akun? 
-                <a href="{{ route('register') }}" style="
-                    color: #FF6B9D;
-                    text-decoration: none;
-                    font-weight: 600;
-                ">Daftar Sekarang</a>
+                Hubungi administrator untuk mendapatkan akses.
             </p>
         </form>
     </div>

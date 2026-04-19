@@ -36,9 +36,32 @@
     </div>
 </div>
 
+<!-- Filter Tanggal -->
+<div class="content-card" style="margin-bottom: 20px;">
+    <form method="GET" action="{{ route('medicines.history', $medicine) }}" style="display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap;">
+        <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Dari Tanggal</label>
+            <input type="date" name="from" value="{{ request('from') }}"
+                   style="padding: 10px 14px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 14px; color: var(--text-primary);">
+        </div>
+        <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Sampai Tanggal</label>
+            <input type="date" name="to" value="{{ request('to') }}"
+                   style="padding: 10px 14px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 14px; color: var(--text-primary);">
+        </div>
+        <button type="submit" class="btn-primary" style="padding: 10px 20px; border-radius: 10px; font-size: 14px;">Filter</button>
+        @if(request('from') || request('to'))
+        <a href="{{ route('medicines.history', $medicine) }}" class="btn-secondary" style="padding: 10px 20px; border-radius: 10px; font-size: 14px; text-decoration: none;">Reset</a>
+        @endif
+    </form>
+</div>
+
 <!-- History Timeline -->
 <div class="content-card">
-    <h3 style="margin-bottom: 24px;">Riwayat Perubahan</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h3 style="margin: 0;">Riwayat Perubahan</h3>
+        <span style="font-size: 13px; color: var(--text-muted);">{{ $histories->total() }} record</span>
+    </div>
     
     @forelse($histories as $history)
     <div style="display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border-color);">
