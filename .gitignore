@@ -1,4 +1,12 @@
 /.phpunit.cache
+/medicines_clean.sql
+*.sql
+/medicine_data.xlsx
+/Form_Uji_Fungsional_SIPASTOB-AB.doc
+/Form_Uji_Kelayakan_SIPASTOB-AB.doc
+/Kuesioner_Uji_Kelayakan_SIPASTOB-AB.doc
+/migrate.php
+/env.production
 /node_modules
 /public/build
 /public/hot
