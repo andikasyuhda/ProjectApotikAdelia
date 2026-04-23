@@ -1,5 +1,6 @@
 /.phpunit.cache
 /medicines_clean.sql
+*.txt
 *.sql
 /medicine_data.xlsx
 /Form_Uji_Fungsional_SIPASTOB-AB.doc
